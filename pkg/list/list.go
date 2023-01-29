@@ -3,21 +3,24 @@ package list
 import (
 	"fmt"
 
+	"github.com/Alan-Luc/tims/pkg/img"
+
 	tea "github.com/charmbracelet/bubbletea"
 )
 
 type model struct {
-	choices  []string         // items on the list
+	choices  img.Images       // img.Images = []img
 	cursor   int              // which items our cursor is pointing at
 	selected map[int]struct{} // which items are selected
 }
 
-func initialModel() model {
-	images := &image.Images
-	images.Grep("sue")
+func InitialModel() model {
+	images := &img.Images{}
+	images.Grep("yotsu")
+	fmt.Println(*images)
 
 	return model{
-		choices:  images,
+		choices:  *images,
 		selected: make(map[int]struct{}),
 	}
 }

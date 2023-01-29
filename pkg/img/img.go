@@ -1,4 +1,4 @@
-package image
+package img
 
 import (
 	"fmt"
@@ -12,12 +12,12 @@ const (
 	scaleDir string = "/home/alan/Pictures/waifu2x/"
 )
 
-type image struct {
+type img struct {
 	FileName string
 	FilePath string
 }
 
-type Images []image
+type Images []img
 
 func (i *Images) Grep(file string) {
 	grep := exec.Command("grep", file)
@@ -42,7 +42,7 @@ func (i *Images) Grep(file string) {
 
 	if len(filePaths) > 0 {
 		for _, path := range filePaths {
-			img := image{
+			img := img{
 				FileName: fileMatchPat.ReplaceAllString(path, "$1"),
 				FilePath: path,
 			}
