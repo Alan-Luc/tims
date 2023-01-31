@@ -18,7 +18,6 @@ var (
 	// search vars
 	searchDir1 string = fmt.Sprintf("%s%s", homeDir, "/Pictures")
 	searchDir2 string = fmt.Sprintf("%s%s", homeDir, "/Dropbox")
-	findImgArg string = "-name \"*.jpg\" -o -name \"*.png\" -o -name \"*.jpeg\""
 )
 
 type Img struct {
@@ -26,15 +25,21 @@ type Img struct {
 	FilePath string
 }
 
-// functions needed to implement list.Item interface
+// methods needed to implement list.Item interface
 func (img Img) Title() string       { return img.FileName }
 func (img Img) Description() string { return img.FilePath }
 func (i Img) FilterValue() string   { return i.FileName }
 
 type Images []Img
 
-func (i *Images) Grep(file string) {
-	searchCmd := fmt.Sprintf("find %s %s %s | grep %v", searchDir1, searchDir2, findImgArg, file)
+func (i *Images) Find(file string) {
+	findImgArg := fmt.Sprintf(
+		"-type f \\( -iname \"*%s*.jpg\" -o -iname \"*%s*.png\" -o -iname \"*%s*.jpeg\" \\)",
+		file,
+		file,
+		file,
+	)
+	searchCmd := fmt.Sprintf("find %s %s %s", searchDir1, searchDir2, findImgArg)
 
 	matches, err := exec.Command(shell, "-c", searchCmd).Output()
 	if err != nil {
@@ -56,6 +61,9 @@ func (i *Images) Grep(file string) {
 			}
 			*i = append(*i, img)
 		}
+	} else {
+		fmt.Printf("no matches for \"%v\"\n", file)
+		os.Exit(1)
 	}
 }
 

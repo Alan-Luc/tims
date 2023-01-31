@@ -41,7 +41,7 @@ type Model struct {
 func InitialModel(query string) Model {
 	delegateKeys := NewDelegateKeyMap()
 
-	Imgs.Grep(query)
+	Imgs.Find(query)
 	images := make([]list.Item, 0)
 	for _, elem := range *Imgs {
 		images = append(images, elem)
