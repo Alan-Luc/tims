@@ -4,15 +4,18 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/Alan-Luc/tims/pkg/list"
-
+	"github.com/Alan-Luc/tims/pkg/listing"
 	tea "github.com/charmbracelet/bubbletea"
 )
 
 func main() {
-	p := tea.NewProgram(list.InitialModel())
-	if err := p.Start(); err != nil {
-		fmt.Printf("there has been an error: %v", err)
+	if len(os.Args) < 2 {
+		fmt.Println("No search param was provided")
+		os.Exit(1)
+	}
+	query := os.Args[1]
+	if _, err := tea.NewProgram(listing.InitialModel(query)).Run(); err != nil {
+		fmt.Println("Error running program:", err)
 		os.Exit(1)
 	}
 }
