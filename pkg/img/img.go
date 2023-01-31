@@ -76,7 +76,8 @@ func (i *Images) Scale(ind int) {
 	img := imgList[ind]
 	output := fmt.Sprintf("%s%s@2x.png", outputDir, img.FileName)
 
-	cmd := exec.Command("waifu2x-ncnn-vulkan", "-i", img.FilePath, "-o", output)
+	cmd := exec.Command("waifu2x-ncnn-vulkan", "-i", img.FilePath, "-o", output, "-n", "2")
+	fmt.Println(cmd)
 	err := cmd.Run()
 	if err != nil {
 		log.Fatal(err)
