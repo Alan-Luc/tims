@@ -1,8 +1,9 @@
 # tims - terminal image manipulation software
 
-<img width="500" src="./tims.png">
+<img width="300" src="https://raw.githubusercontent.com/Alan-Luc/tims/main/.github/images/tims.png">
 
 Search and scale or reformat images from the terminal.
+
 <img width="800" src="./tims.gif">
 
 ## Dependencies
