@@ -93,11 +93,49 @@ func (i *Images) Convert(ind int, format string) {
 	imgPath := img.FilePath
 
 	// this pattern returns entire path without extension
+	// newPathPat := regexp.MustCompile(`([^/]+)(\.\w+)$`)
+	// newPath := newPathPat.ReplaceAllString(imgPath, "$1")
+	// newPath = fmt.Sprintf("%s.%s", newPath, format)
+
+	// cmd := exec.Command("convert", imgPath, newPath)
+	cmd := exec.Command("mogrify", "-format", format, imgPath)
+	err := cmd.Run()
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
+func (i *Images) Rotate(ind int, angle string) {
+	imgList := *i
+	if ind < 0 || ind > len(imgList) {
+		log.Fatal("invalid selection")
+	}
+
+	img := imgList[ind]
+	imgPath := img.FilePath
+
+	cmd := exec.Command("mogrify", "-rotate", angle, imgPath)
+	err := cmd.Run()
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
+func (i *Images) Monochrome(ind int) {
+	imgList := *i
+	if ind < 0 || ind > len(imgList) {
+		log.Fatal("invalid selection")
+	}
+
+	img := imgList[ind]
+	imgPath := img.FilePath
+
+	// this pattern returns entire path without extension
 	newPathPat := regexp.MustCompile(`([^/]+)(\.\w+)$`)
 	newPath := newPathPat.ReplaceAllString(imgPath, "$1")
-	newPath = fmt.Sprintf("%s.%s", newPath, format)
+	newPath = fmt.Sprintf("%sBW.png", newPath)
 
-	cmd := exec.Command("convert", imgPath, newPath)
+	cmd := exec.Command("convert", imgPath, "-colorspace", "Gray", newPath)
 	err := cmd.Run()
 	if err != nil {
 		log.Fatal(err)

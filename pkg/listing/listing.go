@@ -28,8 +28,11 @@ var (
 
 type listKeyMap struct {
 	scale      key.Binding
-	convertJpg key.Binding
-	convertPng key.Binding
+	convertJPG key.Binding
+	convertPNG key.Binding
+	rotateCW   key.Binding
+	rotateCCW  key.Binding
+	monochrome key.Binding
 }
 
 type Model struct {
