@@ -2,7 +2,7 @@
 
 <img width="300" src="https://raw.githubusercontent.com/Alan-Luc/tims/main/.github/images/tims.png">
 
-Search and scale or reformat images from the terminal.
+Search and manipulate images from the terminal.
 
 <img width="800" src="./tims.gif">
 
